@@ -1,0 +1,6 @@
+{
+  "name": "Gestionale Magazzino e Spedizioni",
+  "description": "Applicazione gestionale per il team di magazzino e spedizioni con integrazione Google Sheets e Drive.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

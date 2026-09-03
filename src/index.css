@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom fade-in and slide transitions for modern UX feel */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-slide-left {
+  animation: slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-right {
+  animation: slideRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* iOS Mobile Optimizations */
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none; /* Prevents pull-to-refresh / rubber banding on main body */
+  touch-action: manipulation; /* Removes 300ms tap delay */
+}
+
+/* PREVENT IOS SAFARI & MOBILE AUTO-ZOOM ON INPUT FOCUS
+   iOS Safari automatically forces an unrecoverable zoom if an input has font-size < 16px.
+   Enforcing 16px on mobile viewports stops the zoom entirely. */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Ensure safe area insets are respected for notch devices */
+body {
+  /* Removed manual safe-area-insets to fix grey bar issue */
+}
+
+/* Make scrolling smoother in scrollable areas */
+.overflow-y-auto, .overflow-x-auto, .overflow-auto, .scroll-container {
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@utility scroll-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Disable user selection on UI elements for an app-like feel */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+  }
+}
+
+/* Print Media Query for Shipping Label */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable-shipping-label,
+  .printable-shipping-label * {
+    visibility: visible;
+  }
+  .printable-shipping-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: 2px solid black !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+}
+
+/* Basic Dark Mode Overrides for Prototype */
+.dark body {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+.dark .bg-white {
+  background-color: #1e293b !important;
+  color: #f8fafc;
+}
+.dark .bg-slate-50, .dark .bg-slate-50\/70 {
+  background-color: #0f172a !important;
+  color: #f8fafc;
+}
+.dark .bg-slate-100 {
+  background-color: #334155 !important;
+}
+.dark .text-slate-900, .dark .text-slate-800, .dark .text-slate-700 {
+  color: #f8fafc !important;
+}
+.dark .text-slate-600, .dark .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+.dark .border-slate-200, .dark .border-slate-100, .dark .border-slate-150, .dark .border-slate-300 {
+  border-color: #334155 !important;
+}
+.dark .bg-indigo-50 {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  color: #818cf8 !important;
+}
+.dark .text-indigo-700, .dark .text-indigo-600, .dark .text-indigo-900 {
+  color: #818cf8 !important;
+}
+.dark input, .dark select, .dark textarea {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+.dark .bg-slate-200 {
+  background-color: #475569 !important;
+}
+.dark .bg-emerald-50, .dark .bg-emerald-100 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+}
+.dark .bg-rose-50, .dark .bg-rose-100 {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+}
+.dark .bg-amber-50, .dark .bg-amber-100 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+}
+.dark .bg-teal-50, .dark .bg-teal-100 {
+  background-color: rgba(20, 184, 166, 0.15) !important;
+}
+.dark .text-slate-400 {
+  color: #94a3b8 !important; /* Keep slate-400 readable on dark backgrounds */
+}
+
+/* Fix iOS 100vh issue */
+html, body, #root {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
